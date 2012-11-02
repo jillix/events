@@ -1,4 +1,4 @@
-define(["/jquery.js"], function() {
+define(function() {
 
     function addHandlerOnEvent(handler, miid, eventName) {
 
