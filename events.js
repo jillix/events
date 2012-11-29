@@ -20,8 +20,24 @@ define(function() {
 
                     // this step is a handler function
                     if (step.handler) {
-                        if (typeof self[step.handler] === "function") {
-                            self[step.handler].call(self, data);
+                        var name = null;
+                        var args = [];
+
+                        switch (typeof step.handler) {
+                            case "object":
+                                name = step.handler.name;
+                                args = step.handler.args || [];
+                                break;
+                            case "string":
+                                name = step.handler;
+                                break;
+                        }
+                        if (typeof self[name] === "function") {
+                            var allArgs = [data];
+                            for (var i in args) {
+                                allArgs.push(args[i]);
+                            }
+                            self[name].apply(self, allArgs);
                         }
                         continue;
                     }
