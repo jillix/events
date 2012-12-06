@@ -6,15 +6,15 @@ define(function() {
 
         // if the handler is a module function name as string
         if (typeof handler === "string" && typeof self[handler] === "function") {
-            self.on(eventName, miid, function(data) {
-                self[handler].call(self, data);
+            self.on(eventName, miid, function() {
+                self[handler].apply(self, arguments);
             });
             return;
         }
 
         // else it must be an array of objects
         if (handler.length) {
-            self.on(eventName, miid, function(data) {
+            self.on(eventName, miid, function() {
                 for (var i in handler) {
                     var step = handler[i];
 
@@ -33,9 +33,14 @@ define(function() {
                                 break;
                         }
                         if (typeof self[name] === "function") {
-                            var allArgs = [data];
+                            var allArgs = [];
+                            // first we push the fixed (mono.json arguments)
                             for (var i in args) {
                                 allArgs.push(args[i]);
+                            }
+                            // then come the dynamic ones (data context, callback)
+                            for (var i in arguments) {
+                                allArgs.push(arguments[i]);
                             }
                             self[name].apply(self, allArgs);
                         }
