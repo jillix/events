@@ -6,8 +6,8 @@ define(function() {
 
         // if the handler is a module function name as string
         if (typeof handler === "string" && typeof self[handler] === "function") {
-            self.on(eventName, miid, function(data) {
-                self[handler].call(self, data);
+            self.on(eventName, miid, function() {
+                self[handler].apply(self, arguments);
             });
             return;
         }
@@ -34,9 +34,11 @@ define(function() {
                         }
                         if (typeof self[name] === "function") {
                             var allArgs = [];
+                            // first we push the fixed (mono.json arguments)
                             for (var i in args) {
                                 allArgs.push(args[i]);
                             }
+                            // then come the dynamic ones from the emit arguments (data context, callback, etc.)
                             for (var i in arguments) {
                                 allArgs.push(arguments[i]);
                             }
