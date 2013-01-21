@@ -14,7 +14,7 @@ define(function() {
 
         // else it must be an array of objects
         if (handler.length) {
-            self.on(eventName, miid, function(data) {
+            self.on(eventName, miid, function() {
                 for (var i in handler) {
                     var step = handler[i];
 
@@ -33,9 +33,12 @@ define(function() {
                                 break;
                         }
                         if (typeof self[name] === "function") {
-                            var allArgs = [data];
+                            var allArgs = [];
                             for (var i in args) {
                                 allArgs.push(args[i]);
+                            }
+                            for (var i in arguments) {
+                                allArgs.push(arguments[i]);
                             }
                             self[name].apply(self, allArgs);
                         }
