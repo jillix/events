@@ -3,7 +3,7 @@ define(function() {
     function addHandlerOnEvent(handler, miid, eventName) {
 
         var self = this;
-
+        
         // if the handler is a module function name as string
         if (typeof handler === "string" && typeof self[handler] === "function") {
             self.on(eventName, miid, function() {
@@ -39,9 +39,11 @@ define(function() {
                                 allArgs.push(args[i]);
                             }
                             // then come the dynamic ones from the emit arguments (data context, callback, etc.)
-                            for (var i in arguments) {
+                            
+                            for (var i = 0, l = arguments.length; i < l; ++i) {
                                 allArgs.push(arguments[i]);
                             }
+                            
                             self[name].apply(self, allArgs);
                         }
                         continue;
