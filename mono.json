@@ -1,7 +1,7 @@
 {
     "source": "github",
     "owner": "adioo",
-    "name": "events"
+    "name": "events",
     "dependencies": [
         "/events.js"
     ]
