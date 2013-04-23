@@ -2,4 +2,7 @@
     "source": "github",
     "owner": "adioo",
     "name": "events"
+    "dependencies": [
+        "/events.js"
+    ]
 }
