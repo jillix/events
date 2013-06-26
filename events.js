@@ -1,4 +1,3 @@
-
 function addHandlerOnEvent (handler, miid, eventName) {
 
     var self = this;
@@ -31,9 +30,11 @@ function addHandlerOnEvent (handler, miid, eventName) {
                             name = step.handler;
                             break;
                     }
+
+                    // module functions
                     if (typeof self[name] === "function") {
                         var allArgs = [];
-                        // first we push the fixed (mono.json arguments)
+                        // first we push the fixed (application.json arguments)
                         for (var i in args) {
                             allArgs.push(args[i]);
                         }
@@ -41,9 +42,28 @@ function addHandlerOnEvent (handler, miid, eventName) {
                         for (var i = 0, l = arguments.length; i < l; ++i) {
                             allArgs.push(arguments[i]);
                         }
-                        
+
                         self[name].apply(self, allArgs);
                     }
+
+                    // global functions
+                    if (typeof window[name] === "function") {
+
+                        var allArgs = [];
+
+                        // first we push the fixed (application.json arguments)
+                        for (var i in args) {
+                            allArgs.push(args[i]);
+                        }
+
+                        // then come the dynamic ones from the emit arguments (data context, callback, etc.)
+                        for (var i = 0, l = arguments.length; i < l; ++i) {
+                            allArgs.push(arguments[i]);
+                        }
+
+                        window[name].apply(self, allArgs);
+                    }
+
                     continue;
                 }
 
@@ -73,4 +93,3 @@ module.exports = function(config) {
         }
     }
 }
-
