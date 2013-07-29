@@ -69,7 +69,7 @@ function addHandlerOnEvent (handler, miid, eventName) {
 
                 // this step is an event emit
                 if (step.emit) {
-                    self.emit(step.emit, data);
+                    self.emit(step.emit);
                     continue;
                 }
             }
