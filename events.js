@@ -69,8 +69,27 @@ function addHandlerOnEvent (handler, miid, eventName) {
 
                 // this step is an event emit
                 if (step.emit) {
-                    self.emit(step.emit);
-                    continue;
+
+                    var args = [];
+                    var eventName = step.emit;
+
+                    if (typeof step.emit === "object") {
+                        eventName = step.emit.name;
+                        args = step.emit.args || [];
+                    }
+
+                    // then come the dynamic ones from the emit arguments (data context, callback, etc.)
+                    for (var i = 0, l = arguments.length; i < l; ++i) {
+                        args.push(arguments[i]);
+                    }
+
+                    var allArgs = [];
+                    allArgs.push(eventName);
+                    for (var i in args) {
+                        allArgs.push(args[i]);
+                    }
+
+                    self.emit.apply(self, allArgs);
                 }
             }
         });
