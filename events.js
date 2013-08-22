@@ -1,3 +1,30 @@
+function findValue (parent, dotNot) {
+
+    if (!dotNot) return undefined;
+
+    var splits = dotNot.split(".");
+    var value;
+
+    for (var i = 0; i < splits.length; i++) {
+        value = parent[splits[i]];
+        if (value === undefined) return undefined;
+        if (typeof value === "object") parent = value;
+    }
+
+    return value;
+}
+
+function findFunction (parent, dotNot) {
+
+    var func = findValue(parent, dotNot);
+
+    if (typeof func !== "function") {
+        return undefined;
+    }
+
+    return func;
+}
+
 function addHandlerOnEvent (handler, miid, eventName) {
 
     var self = this;
@@ -31,8 +58,8 @@ function addHandlerOnEvent (handler, miid, eventName) {
                             break;
                     }
 
-                    // module functions
-                    if (typeof self[name] === "function") {
+                    var handler = findFunction(self, name) || findFunction(window, name);
+                    if (typeof handler === "function") {
                         var allArgs = [];
                         // first we push the fixed (application.json arguments)
                         for (var i in args) {
@@ -43,25 +70,7 @@ function addHandlerOnEvent (handler, miid, eventName) {
                             allArgs.push(arguments[i]);
                         }
 
-                        self[name].apply(self, allArgs);
-                    }
-
-                    // global functions
-                    if (typeof window[name] === "function") {
-
-                        var allArgs = [];
-
-                        // first we push the fixed (application.json arguments)
-                        for (var i in args) {
-                            allArgs.push(args[i]);
-                        }
-
-                        // then come the dynamic ones from the emit arguments (data context, callback, etc.)
-                        for (var i = 0, l = arguments.length; i < l; ++i) {
-                            allArgs.push(arguments[i]);
-                        }
-
-                        window[name].apply(self, allArgs);
+                        handler.apply(self, allArgs);
                     }
 
                     continue;
