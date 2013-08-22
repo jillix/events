@@ -85,3 +85,17 @@ if fixed parameters need to be passed to the handler function (see example below
 }
 ```
 
+# Change Log
+
+### dev
+Nothing yet.
+
+### v0.1.3
+ - added namespaced function support for handlers
+
+### v0.1.2
+    TODO
+
+### v0.1.0
+    TODO
+
