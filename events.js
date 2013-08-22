@@ -58,8 +58,8 @@ function addHandlerOnEvent (handler, miid, eventName) {
                             break;
                     }
 
-                    var handler = findFunction(self, name) || findFunction(window, name);
-                    if (typeof handler === "function") {
+                    var handlerFunction = findFunction(self, name) || findFunction(window, name);
+                    if (typeof handlerFunction === "function") {
                         var allArgs = [];
                         // first we push the fixed (application.json arguments)
                         for (var i in args) {
@@ -70,7 +70,7 @@ function addHandlerOnEvent (handler, miid, eventName) {
                             allArgs.push(arguments[i]);
                         }
 
-                        handler.apply(self, allArgs);
+                        handlerFunction.apply(self, allArgs);
                     }
 
                     continue;
