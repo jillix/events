@@ -85,7 +85,7 @@ if fixed parameters need to be passed to the handler function (see example below
 }
 ```
 
-# Change Log
+# Changelog
 
 ### dev
 Nothing yet.
