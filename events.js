@@ -30,40 +30,38 @@ function addHandlerOnEvent (handler, miid, eventName) {
     var self = this;
 
     // if the handler is a module function name as string
-    if (typeof handler === "string" && typeof self[handler] === "function") {
-        self.on(eventName, miid, function() {
-            self[handler].apply(self, arguments);
-        });
+    if (typeof handler === "string") {
+        var handlerFunction = findFunction(self, handler) || findFunction(window, handler);
+        if (handlerFunction) {
+            self.on(eventName, miid, function() {
+                handlerFunction.apply(self, arguments);
+            });
+        }
         return;
     }
 
     // else it must be an array of objects
     if (handler.length) {
         self.on(eventName, miid, function() {
-            for (var i in handler) {
+            for (var i = 0; i < handler.length; ++i) {
                 var step = handler[i];
 
                 // this step is a handler function
                 if (step.handler) {
-                    var name = null;
-                    var args = [];
+                    var handlerName = step.handler;
+                    var configArgs = [];
 
-                    switch (typeof step.handler) {
-                        case "object":
-                            name = step.handler.name;
-                            args = step.handler.args || [];
-                            break;
-                        case "string":
-                            name = step.handler;
-                            break;
+                    if (typeof step.handler === "object") {
+                        handlerName = step.handler.name;
+                        configArgs = step.handler.args || [];
                     }
 
-                    var handlerFunction = findFunction(self, name) || findFunction(window, name);
+                    var handlerFunction = findFunction(self, handlerName) || findFunction(window, handlerName);
                     if (typeof handlerFunction === "function") {
                         var allArgs = [];
                         // first we push the fixed (application.json arguments)
-                        for (var i in args) {
-                            allArgs.push(args[i]);
+                        for (var i = 0; i < configArgs.length; ++i) {
+                            allArgs.push(configArgs[i]);
                         }
                         // then come the dynamic ones from the emit arguments (data context, callback, etc.)
                         for (var i = 0, l = arguments.length; i < l; ++i) {
@@ -78,24 +76,23 @@ function addHandlerOnEvent (handler, miid, eventName) {
 
                 // this step is an event emit
                 if (step.emit) {
-
-                    var args = [];
                     var eventName = step.emit;
+                    var configArgs = [];
 
                     if (typeof step.emit === "object") {
                         eventName = step.emit.name;
-                        args = step.emit.args || [];
+                        configArgs = step.emit.args || [];
                     }
 
                     // then come the dynamic ones from the emit arguments (data context, callback, etc.)
                     for (var i = 0, l = arguments.length; i < l; ++i) {
-                        args.push(arguments[i]);
+                        configArgs.push(arguments[i]);
                     }
 
                     var allArgs = [];
                     allArgs.push(eventName);
-                    for (var i in args) {
-                        allArgs.push(args[i]);
+                    for (var i = 0; i < configArgs.length; ++i) {
+                        allArgs.push(configArgs[i]);
                     }
 
                     self.emit.apply(self, allArgs);
@@ -120,4 +117,5 @@ module.exports = function(config) {
             addHandlerOnEvent.call(self, miidEvents[eventName], miid, eventName);
         }
     }
-}
+};
+
