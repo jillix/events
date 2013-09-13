@@ -90,6 +90,20 @@ if fixed parameters need to be passed to the handler function (see example below
 ### dev
 Nothing yet.
 
+### v0.1.4
+ - fixed IE8 compatibility by removing all `for (var i in ...)` expressions
+ - fixed simple event version to support global namespaced functions:
+
+ ```
+{
+    "listen": {
+        "myMiid": {
+            "myEvent": "simple_handler_call"
+        }
+    }
+}
+```
+
 ### v0.1.3
  - added namespaced function support for handlers
 
