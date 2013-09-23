@@ -60,12 +60,12 @@ function addHandlerOnEvent (handler, miid, eventName) {
                     if (typeof handlerFunction === "function") {
                         var allArgs = [];
                         // first we push the fixed (application.json arguments)
-                        for (var i = 0; i < configArgs.length; ++i) {
-                            allArgs.push(configArgs[i]);
+                        for (var ii = 0; ii < configArgs.length; ++ii) {
+                            allArgs.push(configArgs[ii]);
                         }
                         // then come the dynamic ones from the emit arguments (data context, callback, etc.)
-                        for (var i = 0, l = arguments.length; i < l; ++i) {
-                            allArgs.push(arguments[i]);
+                        for (var ii = 0, l = arguments.length; ii < l; ++ii) {
+                            allArgs.push(arguments[ii]);
                         }
 
                         handlerFunction.apply(self, allArgs);
@@ -85,13 +85,13 @@ function addHandlerOnEvent (handler, miid, eventName) {
                     }
 
                     // then come the dynamic ones from the emit arguments (data context, callback, etc.)
-                    for (var i = 0, l = arguments.length; i < l; ++i) {
-                        configArgs.push(arguments[i]);
+                    for (var ii = 0, l = arguments.length; ii < l; ++ii) {
+                        configArgs.push(arguments[ii]);
                     }
 
                     var allArgs = [];
                     allArgs.push(eventName);
-                    for (var i = 0; i < configArgs.length; ++i) {
+                    for (var ii = 0; ii < configArgs.length; ++ii) {
                         allArgs.push(configArgs[i]);
                     }
 
