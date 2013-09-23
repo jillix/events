@@ -90,6 +90,9 @@ if fixed parameters need to be passed to the handler function (see example below
 ### dev
 Nothing yet.
 
+### v0.1.6
+ - Fixed counter declaration in for loops: replaced `i` with `ii`
+
 ### v0.1.5
  - added "if (!obj.hasOwnProperty(key)) return;" to object for loops
 
