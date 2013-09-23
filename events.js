@@ -110,12 +110,14 @@ module.exports = function(config) {
 
     // process only the listen property in the configurations
     for (var miid in config.listen) {
+        if (!config.listen.hasOwnProperty(miid)) return;
 
         var miidEvents = config.listen[miid];
 
         for (var eventName in miidEvents) {
+            if (!miidEvents.hasOwnProperty(eventName)) return;
+
             addHandlerOnEvent.call(self, miidEvents[eventName], miid, eventName);
         }
     }
 };
-
