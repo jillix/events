@@ -8,7 +8,7 @@ configurations.
 Requirements and Dependencies
 -----------------------------
 
-This module is built only on top of the Mono client library (M.js) and has no further dependencies. 
+This module is built only on top of the Mono client library (M.js) and has no further dependencies.
 
 Usage
 -----
@@ -89,6 +89,9 @@ if fixed parameters need to be passed to the handler function (see example below
 
 ### dev
 Nothing yet.
+
+### v0.1.5
+ - added "if (!obj.hasOwnProperty(key)) return;" to object for loops
 
 ### v0.1.4
  - fixed IE8 compatibility by removing all `for (var i in ...)` expressions
