@@ -92,7 +92,7 @@ function addHandlerOnEvent (handler, miid, eventName) {
                     var allArgs = [];
                     allArgs.push(eventName);
                     for (var ii = 0; ii < configArgs.length; ++ii) {
-                        allArgs.push(configArgs[i]);
+                        allArgs.push(configArgs[ii]);
                     }
 
                     self.emit.apply(self, allArgs);
