@@ -88,17 +88,25 @@ if fixed parameters need to be passed to the handler function (see example below
 # Changelog
 
 ### dev
-Nothing yet.
+
+- Add fixed and features here
+
+### v0.1.7
+
+- Fixed broken `hasOwnProperty` that used `return` instead of `continue`
 
 ### v0.1.6
- - Fixed counter declaration in for loops: replaced `i` with `ii`
+
+- Fixed counter declaration in for loops: replaced `i` with `ii`
 
 ### v0.1.5
- - added "if (!obj.hasOwnProperty(key)) return;" to object for loops
+
+- added "if (!obj.hasOwnProperty(key)) return;" to object for loops
 
 ### v0.1.4
- - fixed IE8 compatibility by removing all `for (var i in ...)` expressions
- - fixed simple event version to support global namespaced functions:
+
+- fixed IE8 compatibility by removing all `for (var i in ...)` expressions
+- fixed simple event version to support global namespaced functions:
 
  ```
 {
