@@ -101,7 +101,7 @@ if fixed parameters need to be passed to the handler function (see example below
 
 ### v0.1.5
 
-- added "if (!obj.hasOwnProperty(key)) return;" to object for loops
+- added `if (!obj.hasOwnProperty(key)) return;` to object for loops
 
 ### v0.1.4
 
