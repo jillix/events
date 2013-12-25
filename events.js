@@ -31,12 +31,19 @@ function addHandlerOnEvent (handler, miid, eventName) {
 
     // if the handler is a module function name as string
     if (typeof handler === "string") {
-        var handlerFunction = findFunction(self, handler) || findFunction(window, handler);
-        if (handlerFunction) {
-            self.on(eventName, miid, function() {
-                handlerFunction.apply(self, arguments);
-            });
-        }
+
+        // on event name
+        self.on(eventName, miid, function() {
+
+            // find function
+            var handlerFunction = findFunction(self, handler) || findFunction(window, handler);
+
+            // return if function doesn't exist
+            if (!handlerFunction) { return; }
+
+            // call function
+            handlerFunction.apply(self, arguments);
+        });
         return;
     }
 
@@ -121,4 +128,3 @@ module.exports = function(config) {
         }
     }
 };
-

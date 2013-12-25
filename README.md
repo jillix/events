@@ -91,6 +91,9 @@ if fixed parameters need to be passed to the handler function (see example below
 
 - Add fixed and features here
 
+### v0.1.8
+ - Add event even the function is not found when the event is added. The function can be declared latter.
+
 ### v0.1.7
 
 - Fixed broken `hasOwnProperty` that used `return` instead of `continue`
