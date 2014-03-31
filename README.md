@@ -89,10 +89,12 @@ if fixed parameters need to be passed to the handler function (see example below
 
 ### dev
 
+- The module can not uninit events (remove handlers) if an extra `true` argument is passed to the library: `Events.call(self, self.config, true)`. The module configuration will be changed to store the function handlers.
 - Add fixed and features here
 
 ### v0.1.8
- - Add event even the function is not found when the event is added. The function can be declared latter.
+
+- Add event even the function is not found when the event is added. The function can be declared latter.
 
 ### v0.1.7
 
