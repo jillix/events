@@ -25,33 +25,48 @@ function findFunction (parent, dotNot) {
     return func;
 }
 
-function addHandlerOnEvent (handler, miid, eventName) {
+function removeHandlerOnEvent (handlerObj, miid, eventName) {
+    var self = this;
+    self.off(eventName, miid, handlerObj[eventName]);
+}
+
+function addHandlerOnEvent (handlerObj, miid, eventName) {
 
     var self = this;
 
     // if the handler is a module function name as string
-    if (typeof handler === "string") {
+    if (typeof handlerObj[eventName] === "string") {
 
-        // on event name
-        self.on(eventName, miid, function() {
+        var fooName = handlerObj[eventName];
+
+        // the function must be saved for later fo uninits
+        handlerObj[eventName] = function() {
 
             // find function
-            var handlerFunction = findFunction(self, handler) || findFunction(window, handler);
+            var handlerFunction = findFunction(self, fooName) || findFunction(window, fooName);
 
             // return if function doesn't exist
             if (!handlerFunction) { return; }
 
             // call function
             handlerFunction.apply(self, arguments);
-        });
+        };
+
+        // on event name
+        self.on(eventName, miid, handlerObj[eventName]);
+
         return;
     }
 
     // else it must be an array of objects
-    if (handler.length) {
-        self.on(eventName, miid, function() {
-            for (var i = 0; i < handler.length; ++i) {
-                var step = handler[i];
+    if (handlerObj[eventName].length) {
+
+        var steps = handlerObj[eventName];
+
+        // the function must be saved for later fo uninits
+        handlerObj[eventName] = function() {
+            for (var i = 0; i < steps.length; ++i) {
+                var step = steps[i];
 
                 // this step is a handler function
                 if (step.handler) {
@@ -105,13 +120,15 @@ function addHandlerOnEvent (handler, miid, eventName) {
                     self.emit.apply(self, allArgs);
                 }
             }
-        });
+        };
+
+        self.on(eventName, miid, handlerObj[eventName]);
 
         return;
     }
 }
 
-module.exports = function(config) {
+module.exports = function(config, uninit) {
 
     var self = this;
 
@@ -124,7 +141,9 @@ module.exports = function(config) {
         for (var eventName in miidEvents) {
             if (!miidEvents.hasOwnProperty(eventName)) continue;
 
-            addHandlerOnEvent.call(self, miidEvents[eventName], miid, eventName);
+            var foo = uninit ? removeHandlerOnEvent : addHandlerOnEvent;
+            foo.call(self, miidEvents, miid, eventName);
         }
     }
 };
+
