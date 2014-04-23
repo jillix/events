@@ -1,29 +1,5 @@
-function findValue (parent, dotNot) {
-
-    if (!dotNot) return undefined;
-
-    var splits = dotNot.split(".");
-    var value;
-
-    for (var i = 0; i < splits.length; i++) {
-        value = parent[splits[i]];
-        if (value === undefined) return undefined;
-        if (typeof value === "object") parent = value;
-    }
-
-    return value;
-}
-
-function findFunction (parent, dotNot) {
-
-    var func = findValue(parent, dotNot);
-
-    if (typeof func !== "function") {
-        return undefined;
-    }
-
-    return func;
-}
+// dependencies
+var Utils = require ("github/jillix/utils");
 
 function removeHandlerOnEvent (handlerObj, miid, eventName) {
     var self = this;
@@ -43,7 +19,7 @@ function addHandlerOnEvent (handlerObj, miid, eventName) {
         handlerObj[eventName] = function() {
 
             // find function
-            var handlerFunction = findFunction(self, fooName) || findFunction(window, fooName);
+            var handlerFunction = Utils.findFunction (self, fooName) || Utils.findFunction (window, fooName);
 
             // return if function doesn't exist
             if (!handlerFunction) { return; }
@@ -78,7 +54,7 @@ function addHandlerOnEvent (handlerObj, miid, eventName) {
                         configArgs = step.handler.args || [];
                     }
 
-                    var handlerFunction = findFunction(self, handlerName) || findFunction(window, handlerName);
+                    var handlerFunction = Utils.findFunction (self, handlerName) || Utils.findFunction (window, handlerName);
                     if (typeof handlerFunction === "function") {
                         var allArgs = [];
                         // first we push the fixed (application.json arguments)
@@ -146,4 +122,3 @@ module.exports = function(config, uninit) {
         }
     }
 };
-
