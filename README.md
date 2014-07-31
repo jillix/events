@@ -91,36 +91,31 @@ if fixed parameters need to be passed to the handler function (see example below
 
 - Add fixed and features here
 
-### v0.1.11
+### v0.3.0
+ - Updated to `utils@v0.1.5`
 
+### v0.1.11
  - Updated Utils to `v0.1.2`
 
 ### v0.1.10
-
  - Added Utils as dependency
 
 ### v0.1.9
-
 - The module can not uninit events (remove handlers) if an extra `true` argument is passed to the library: `Events.call(self, self.config, true)`. The module configuration will be changed to store the function handlers.
 
 ### v0.1.8
-
 - Add event even the function is not found when the event is added. The function can be declared latter.
 
 ### v0.1.7
-
 - Fixed broken `hasOwnProperty` that used `return` instead of `continue`
 
 ### v0.1.6
-
 - Fixed counter declaration in for loops: replaced `i` with `ii`
 
 ### v0.1.5
-
 - added `if (!obj.hasOwnProperty(key)) return;` to object for loops
 
 ### v0.1.4
-
 - fixed IE8 compatibility by removing all `for (var i in ...)` expressions
 - fixed simple event version to support global namespaced functions:
 
