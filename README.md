@@ -91,6 +91,9 @@ if fixed parameters need to be passed to the handler function (see example below
 
 - Add fixed and features here
 
+### v0.3.1
+ - Updated to `utils@v0.1.8`
+
 ### v0.3.0
  - Updated to `utils@v0.1.5`
 
