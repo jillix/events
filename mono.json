@@ -1,9 +1,9 @@
 {
     "source": "github"
-  , "owner": "jillix"
+  , "owner": "jxmono"
   , "name": "events"
   , "dependencies": [
         "/events.js"
-      , "github/jillix/utils/v0.1.8"
+      , "github/jxmono/utils/v0.2.0"
     ]
 }
