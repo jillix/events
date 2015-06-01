@@ -87,9 +87,9 @@ if fixed parameters need to be passed to the handler function (see example below
 
 # Changelog
 
-### dev
-
-- Add fixed and features here
+### v0.4.0
+ - transferred module to the new jxMono organization
+ - updated Utils to `v0.2.0`
 
 ### v0.3.1
  - Updated to `utils@v0.1.8`
