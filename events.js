@@ -1,5 +1,5 @@
 // dependencies
-var Utils = require ("github/jillix/utils");
+var Utils = require ("github/jxmono/utils");
 
 function removeHandlerOnEvent (handlerObj, miid, eventName) {
     var self = this;
